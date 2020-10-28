@@ -1,18 +1,18 @@
 """Functions to export"""
 
-from urllib.parse import urlparse
+import socket
+
+BUFFER_SIZE = 4096
 
 
 def tee(source, destinations):
-    """Mirror UDP traffic from soruce to destinations"""
-    print(split_host_and_port(source))
-    for destination in destinations:
-        print(split_host_and_port(destination))
+    """Mirror UDP traffic from source to destinations"""
+    print(f"Listening on {source}")
+    print(f"Forwarding to {destinations}")
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind(source)
 
-
-def split_host_and_port(address):
-    """Parse address string into host and port"""
-    url = urlparse(f"//{address}")
-    if not url.port:
-        raise ValueError
-    return url.hostname, url.port
+    while True:
+        data, _ = sock.recvfrom(BUFFER_SIZE)
+        for destination in destinations:
+            sock.sendto(data, destination)
