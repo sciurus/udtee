@@ -11,12 +11,12 @@ def run():
         description="Mirror UDP traffic from source to destinations."
     )
     parser.add_argument(
-        "-s", "--source", help="Address to listen on. Example: localhost:1000"
+        "-s", "--source", help="Address to listen on. Example: localhost:10000"
     )
     parser.add_argument(
         "-d",
         "--destinations",
-        help="Comma-seperated list of addresses to mirror to. Example: example.com:2000,example.com:3000",  # pylint: disable=line-too-long
+        help="Comma-seperated list of addresses to mirror to. Example: example.com:20000,example.com:30000",  # pylint: disable=line-too-long
     )
     args = parser.parse_args()
 
